@@ -1,8 +1,12 @@
 from datetime import datetime, timezone
+
 from uuid import uuid4
 from fastapi import APIRouter, Body, HTTPException, status
+from fastapi_pagination import Page
 from pydantic import UUID4
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
+from fastapi_pagination import paginate
 
 from workout_api.atleta.models import AtletaModel
 from workout_api.atleta.schemas import AtletaIn, AtletaOut, AtletaUpdate
@@ -70,15 +74,22 @@ async def post(
         )
         atleta_model.categoria_id = categoria.pk_id
         atleta_model.centro_treinamento_id = centro_treinamento.pk_id
-        # breakpoint()
 
         db_session.add(atleta_model)
-        await db_session.commit()
+
+        try:
+            await db_session.commit()
+
+        except IntegrityError:
+            raise HTTPException(
+                status_code=status.HTTP_303_SEE_OTHER,
+                detail=f"Já existe um atleta cadastrado com o cpf: {atleta_model.cpf}",
+            )
 
     except Exception:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Ocorreu um erro ao inserir od dados no banco.",
+            detail="Ocorreu um erro ao inserir os dados no banco.",
         )
 
     return atleta_out
@@ -88,14 +99,17 @@ async def post(
     "/",
     summary="Consultar todos os atletas",
     status_code=status.HTTP_200_OK,
-    response_model=list[AtletaOut],
+    response_model=Page[AtletaOut],
 )
-async def query(db_session: DatabaseDependency) -> list[AtletaOut]:
-    atletas: list[AtletaOut] = (
-        (await db_session.execute(select(AtletaModel))).scalars().all()
+async def query(db_session: DatabaseDependency) -> Page[AtletaOut]:
+    return paginate(
+        [
+            atleta
+            for atleta in await db_session.scalars(
+                select(AtletaModel).limit(10).offset(0)
+            )
+        ]
     )
-
-    return [AtletaOut.model_validate(atleta) for atleta in atletas]
 
 
 @router.get(
