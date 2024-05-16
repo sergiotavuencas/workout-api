@@ -1,5 +1,5 @@
 from typing import Annotated, Optional
-from pydantic import UUID4, Field, PositiveFloat
+from pydantic import UUID4, BaseModel, Field, PositiveFloat
 
 from workout_api.categoria.schemas import Categoria
 from workout_api.centro_treinamento.schemas import CentroTreinamentoAtleta
@@ -38,4 +38,14 @@ class AtletaUpdate(BaseSchema):
     ]
     idade: Annotated[
         Optional[int], Field(None, description="Idade do atleta", example=25)
+    ]
+
+
+class AtletaSimplified(BaseModel):
+    nome: Annotated[
+        str, Field(description="Nome do atleta", example="Joao", max_length=50)
+    ]
+    categoria: Annotated[Categoria, Field(description="Categoria do atleta")]
+    centro_treinamento: Annotated[
+        CentroTreinamentoAtleta, Field(description="Centro de treinamento do atleta")
     ]
