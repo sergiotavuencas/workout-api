@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
 
+from typing import Optional
 from uuid import uuid4
 from fastapi import APIRouter, Body, HTTPException, status
 from fastapi_pagination import Page
@@ -9,7 +10,7 @@ from sqlalchemy.exc import IntegrityError
 from fastapi_pagination import paginate
 
 from workout_api.atleta.models import AtletaModel
-from workout_api.atleta.schemas import AtletaIn, AtletaOut, AtletaUpdate
+from workout_api.atleta.schemas import AtletaIn, AtletaOut, AtletaSimplified, AtletaUpdate
 from workout_api.categoria.models import CategoriaModel
 from workout_api.categoria.schemas import CategoriaOut
 from workout_api.centro_treinamento.models import CentroTreinamentoModel
@@ -28,6 +29,7 @@ router = APIRouter()
 async def post(
     db_session: DatabaseDependency, atleta_in: AtletaIn = Body(...)
 ) -> AtletaOut:
+    # 
     categoria_nome = atleta_in.categoria.nome
     centro_treinamento_nome = atleta_in.centro_treinamento.nome
 
@@ -99,17 +101,41 @@ async def post(
     "/",
     summary="Consultar todos os atletas",
     status_code=status.HTTP_200_OK,
-    response_model=Page[AtletaOut],
+    response_model=Page[AtletaSimplified],
 )
-async def query(db_session: DatabaseDependency) -> Page[AtletaOut]:
-    return paginate(
-        [
+async def query(
+    db_session: DatabaseDependency,
+    nome: Optional[str] = None,
+    cpf: Optional[str] = None,
+) -> Page[AtletaSimplified]:
+    atleta_nome = nome
+    atleta_cpf = cpf
+
+    if atleta_nome:
+        query = [
+            atleta
+            for atleta in await db_session.scalars(
+                select(AtletaModel).filter_by(nome=atleta_nome).limit(10).offset(0)
+            )
+        ]
+
+    elif atleta_cpf:
+        query = [
+            atleta
+            for atleta in await db_session.scalars(
+                select(AtletaModel).filter_by(cpf=atleta_cpf).limit(10).offset(0)
+            )
+        ]
+
+    else:
+        query = [
             atleta
             for atleta in await db_session.scalars(
                 select(AtletaModel).limit(10).offset(0)
             )
         ]
-    )
+    
+    return paginate(query)
 
 
 @router.get(
