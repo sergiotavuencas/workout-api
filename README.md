@@ -13,37 +13,42 @@
 O desafio foi proposto pela **[DIO](https://www.dio.me/)** **(Digital Innovation One)** a fim de oferecer uma experiência prática de desenvolvimento utilizando Python. A ideia central do desafio é construir uma API utilizando o FastAPI, Docker Compose e Alembic para o cadastro de **Atletas** em uma **Categoria** específica e em qual **Centro de Treinamento** praticam:
 
 ## Resultado
-### Menu
-![Menu](https://github.com/sergiotavuencas/sistema-bancario/blob/screenshots/menu01.png)
 
-![Menu](https://github.com/sergiotavuencas/sistema-bancario/blob/screenshots/menu02.png)
+### Cadastrar Atleta
+![Cadastrar Atleta](https://github.com/sergiotavuencas/workout-api/blob/screenshots/atleta/post.png)
 
-### Depósito
-![Depósito](https://github.com/sergiotavuencas/sistema-bancario/blob/screenshots/deposito01.png)
+### Consultar Todos os Atletas
+![Consultar Todos os Atletas](https://github.com/sergiotavuencas/workout-api/blob/screenshots/atleta/get-all.png)
 
-![Depósito](https://github.com/sergiotavuencas/sistema-bancario/blob/screenshots/deposito02.png)
+### Consultar Atleta por Nome
+![Consultar Atleta por Nome](https://github.com/sergiotavuencas/workout-api/blob/screenshots/atleta/get-all-by-name.png)
 
-### Saque
-![Saque](https://github.com/sergiotavuencas/sistema-bancario/blob/screenshots/saque01.png)
+### Consultar Atleta por CPF
+![Consultar Atleta por CPF](https://github.com/sergiotavuencas/workout-api/blob/screenshots/atleta/get-all-by-cpf.png)
 
-![Saque](https://github.com/sergiotavuencas/sistema-bancario/blob/screenshots/saque02.png)
+### Consultar Atleta por ID
+![Consultar Atleta por ID](https://github.com/sergiotavuencas/workout-api/blob/screenshots/atleta/get-by-id.png)
 
-![Saque](https://github.com/sergiotavuencas/sistema-bancario/blob/screenshots/saque03.png)
+### Editar Atleta por ID
+![Editar Atleta por ID](https://github.com/sergiotavuencas/workout-api/blob/screenshots/atleta/patch.png)
 
-### Extrato
-![Extrato](https://github.com/sergiotavuencas/sistema-bancario/blob/screenshots/extrato.png)
+### Cadastrar Categoria
+![Cadastrar Categoria](https://github.com/sergiotavuencas/workout-api/blob/screenshots/categoria/post.png)
 
-### Novo Usuário
-![Novo Usuário](https://github.com/sergiotavuencas/sistema-bancario/blob/screenshots/novo_usuario01.png)
-![Novo Usuário](https://github.com/sergiotavuencas/sistema-bancario/blob/screenshots/novo_usuario02.png)
+### Consultar Todas as Categorias
+![Consultar Todas as Categorias](https://github.com/sergiotavuencas/workout-api/blob/screenshots/categoria/get-all.png)
 
-### Nova Conta
-![Nova Conta](https://github.com/sergiotavuencas/sistema-bancario/blob/screenshots/nova_conta01.png)
-![Nova Conta](https://github.com/sergiotavuencas/sistema-bancario/blob/screenshots/nova_conta02.png)
-![Nova Conta](https://github.com/sergiotavuencas/sistema-bancario/blob/screenshots/nova_conta03.png)
+### Consultar Categoria por ID
+![Consultar Categoria por ID](https://github.com/sergiotavuencas/workout-api/blob/screenshots/categoria/get-by-id.png)
 
-### Listar Contas
-![Listar Contas](https://github.com/sergiotavuencas/sistema-bancario/blob/screenshots/listar_contas.png)
+### Cadastrar Centro de Treinamento
+![Cadastrar Centro de Treinamento](https://github.com/sergiotavuencas/workout-api/blob/screenshots/centro%20de%20treinamento/post.png)
+
+### Consultar Todos os Centros de Treinamento
+![Consultar Todos os Centros de Treinamento](https://github.com/sergiotavuencas/workout-api/blob/screenshots/centro%20de%20treinamento/get-all.png)
+
+### Consultar Centro de Treinamento por ID
+![Consultar Centro de Treinamento por ID](https://github.com/sergiotavuencas/workout-api/blob/screenshots/centro%20de%20treinamento/get-by-id.png)
 
 ## Github
 [![Top Langs](https://github-readme-stats-git-masterrstaa-rickstaa.vercel.app/api/top-langs/?username=sergiotavuencas)](https://github.com/anuraghazra/github-readme-stats)
